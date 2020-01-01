@@ -9,6 +9,7 @@ import { User } from '../models/interface';
 export class UsersComponent implements OnInit {
   user:User
   users:User[];
+  loaded:boolean;
   constructor() { 
     
   }
@@ -48,6 +49,7 @@ export class UsersComponent implements OnInit {
         }
       
       ]
+      this.loaded=true;
 
   }
 
