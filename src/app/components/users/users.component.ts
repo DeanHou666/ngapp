@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../models/interface';
 
 @Component({
   selector: 'app-users',
@@ -6,13 +7,50 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  firstName= 'John';
-  lastName= 'doe';
-  age=30;
+  user:User
+  users:User[];
   constructor() { 
+    
   }
 
   ngOnInit() {
+
+      this.users =[
+        {
+          firstName:'John',
+          lastName:'Doe',
+          age:30,
+          address:{
+            street:'50th main street',
+            city:'boston',
+            state:'MA'
+          }
+        },
+        {
+          firstName:'John',
+          lastName:'Doe',
+          age:30,
+          address:{
+            street:'50th main street',
+            city:'boston',
+            state:'MA'
+          }
+        },
+        {
+          firstName:'John',
+          lastName:'Doe',
+          age:30,
+          address:{
+            street:'50th main street',
+            city:'boston',
+            state:'MA'
+          }
+        }
+      
+      ]
+
   }
 
 }
+
+
