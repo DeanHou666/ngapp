@@ -15,8 +15,4 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
   }
 
-  hasBirthday(){
-    this.age +=1;
-  }
-
 }
