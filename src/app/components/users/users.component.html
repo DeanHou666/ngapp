@@ -1,6 +1,45 @@
 <h2>users</h2>
-<ul *ngIf="loaded && users.length>0">
-  <li class="card" *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</li>
-</ul>
+<button class="btn btn-dark mb-2" (click)="showUserForm=!showUserForm">show user form</button>
+<div class="card card-body" *ngIf="showUserForm">
+  <form (submit)="onSubmit()">
+    <div class="form-group mt-3">
+      <label for="firstName">first name</label>
+      <input type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName" >
+    </div>
+    <div class="form-group">
+      <label for="lastName">last name</label>
+      <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName">
+    </div>
+    <div class="form-group mt-3">
+      <label for="age">age</label>
+      <input type="text" name="age" class="form-control" [(ngModel)]="user.age">
+    </div>
+    <div class="form-group">
+      <label for="street">address,street</label>
+      <input type="text" name="street" class="form-control" [(ngModel)]="user.address.street">
+    </div>
+    <div class="form-group mt-3">
+      <label for="city">city</label>
+      <input type="text" name="city" class="form-control" [(ngModel)]="user.address.city">
+    </div>
+    <div class="form-group">
+      <label for="state">state</label>
+      <input type="text" name="state" class="form-control" [(ngModel)]="user.address.state">
+    </div>
 
+    <button class="btn btn-light btn-block" [disabled]="user.firstName =='' || user.lastName=='' " >add new user</button>
+  </form>
+</div>
+
+
+
+<ul *ngIf="loaded && users.length>0" [ngClass]="currentClasses">
+  <li class="card card-body list-unstyled mb-2 mt-5" *ngFor="let user of users">
+    <h3>{{user.firstName}} {{user.lastName}} <small><button class="btn btn-dark btn-sm" (click)="toggleHide(user)"><i
+            [ngClass]="user.hide? 'fa fa-plus':'fa fa-minus'"></i></button></small></h3>
+    <ul class="list-group" *ngIf="!user.hide">
+      <li class="list-group-item">age:{{user.age}}</li>
+      <li class="list-group-item">address:{{user.address.street}},{{user.address.city}},{{user.address.state}}</li>
+    </ul>
+  </li>
 </ul>
