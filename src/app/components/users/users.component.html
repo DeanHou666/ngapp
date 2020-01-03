@@ -1,32 +1,52 @@
 <h2>users</h2>
 <button class="btn btn-dark mb-2" (click)="showUserForm=!showUserForm">show user form</button>
 <div class="card card-body" *ngIf="showUserForm">
-  <form (submit)="onSubmit()">
+  <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
     <div class="form-group mt-3">
       <label for="firstName">first name</label>
-      <input type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName" >
+      <input type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName"
+      #userFirstName='ngModel'
+      [ngClass]="{'is-invalid': userFirstName.errors && userFirstName.touched}"
+      required
+      minlength="2"
+      >
+      <div class="invalid-feedback" [hidden]="!userFirstName.errors?.required">
+        is needed
+      </div>
+      <div class="invalid-feedback" [hidden]="!userFirstName.errors?.minlength">
+        2 is must
+      </div>
     </div>
     <div class="form-group">
       <label for="lastName">last name</label>
-      <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName">
+      <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName"
+      #userLastName="ngModel"
+      [ngClass]="{'is-invalid': userLastName.errors && userLastName.touched}"
+      required
+      minlength="2"
+      >
+      <div class="invalid-feedback" [hidden]="!userLastName.errors?.required">
+        is needed
+      </div>
+      <div class="invalid-feedback" [hidden]="!userLastName.errors?.minlength">
+        2 is must
+      </div>
     </div>
     <div class="form-group mt-3">
-      <label for="age">age</label>
-      <input type="text" name="age" class="form-control" [(ngModel)]="user.age">
+      <label for="age">email</label>
+      <input type="text" name="email" class="form-control" [(ngModel)]="user.email"
+      [ngClass]="{'is-invalid': userEmail.errors && userEmail.touched}"
+      #userEmail='ngModel'
+      required
+      pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+      >
+      <div class="invalid-feedback" [hidden]="!userEmail.errors?.required">
+        is needed
+      </div>
+      <div class="invalid-feedback" [hidden]="!userEmail.errors?.pattern">
+        email pattern
+      </div>
     </div>
-    <div class="form-group">
-      <label for="street">address,street</label>
-      <input type="text" name="street" class="form-control" [(ngModel)]="user.address.street">
-    </div>
-    <div class="form-group mt-3">
-      <label for="city">city</label>
-      <input type="text" name="city" class="form-control" [(ngModel)]="user.address.city">
-    </div>
-    <div class="form-group">
-      <label for="state">state</label>
-      <input type="text" name="state" class="form-control" [(ngModel)]="user.address.state">
-    </div>
-
     <button class="btn btn-light btn-block" [disabled]="user.firstName =='' || user.lastName=='' " >add new user</button>
   </form>
 </div>
@@ -38,8 +58,8 @@
     <h3>{{user.firstName}} {{user.lastName}} <small><button class="btn btn-dark btn-sm" (click)="toggleHide(user)"><i
             [ngClass]="user.hide? 'fa fa-plus':'fa fa-minus'"></i></button></small></h3>
     <ul class="list-group" *ngIf="!user.hide">
-      <li class="list-group-item">age:{{user.age}}</li>
-      <li class="list-group-item">address:{{user.address.street}},{{user.address.city}},{{user.address.state}}</li>
+      <li class="list-group-item">email:{{user.email}}</li>
+      <li class="list-group-item">register:{{user.register | date}}</li>
     </ul>
   </li>
 </ul>

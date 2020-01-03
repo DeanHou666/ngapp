@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { User } from '../models/interface';
 
 @Component({
@@ -10,16 +10,12 @@ export class UsersComponent implements OnInit {
   user:User ={
     firstName:'',
     lastName:'',
-    age:null,
-    address:{
-      street:'',
-      city:'',
-      state:''
-    },
+    email:''
   }
   users:User[];
   loaded:boolean;
   showUserForm:boolean=false;
+  @ViewChild('userForm') form:any;
 
   constructor() { 
     
@@ -31,34 +27,20 @@ export class UsersComponent implements OnInit {
         {
           firstName:'John',
           lastName:'Doe',
-          age:30,
-          address:{
-            street:'50th main street',
-            city:'boston',
-            state:'MA'
-          },
+          email:'sample@123.com',
+          register: new Date('2010-3-2'),
           hide:true
         },
         {
           firstName:'John',
           lastName:'Doe',
-          age:30,
-          address:{
-            street:'50th main street',
-            city:'boston',
-            state:'MA'
-          },
+          email:'sample@123.com',
           hide:true
         },
         {
           firstName:'John',
           lastName:'Doe',
-          age:30,
-          address:{
-            street:'50th main street',
-            city:'boston',
-            state:'MA'
-          },
+          email:'sample@123.com',
           hide:false
         }
       
@@ -69,24 +51,17 @@ export class UsersComponent implements OnInit {
   toggleHide(user:User){
     user.hide=!user.hide
   }
-  fireEvent(e){
-    console.log(e.target.value)
-    console.log(e.type)
-  }
-  onSubmit(){
-    this.users.unshift(this.user)
-    this.user={
-      firstName:'',
-      lastName:'',
-      age:null,
-      address:{
-        street:'',
-        city:'',
-        state:''
-      },
+  onSubmit({value,valid}:{value:User,valid:boolean}){
+    if(!valid){
+      alert('pls valid the input info')
+    }else{
+      value.hide=true
+      this.users.unshift(value)
+      this.form.reset()
     }
 
   }
 }
+
 
 
