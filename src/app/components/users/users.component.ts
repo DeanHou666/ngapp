@@ -1,5 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { User } from '../models/interface';
+import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-users',
@@ -16,37 +18,20 @@ export class UsersComponent implements OnInit {
   loaded:boolean;
   showUserForm:boolean=false;
   @ViewChild('userForm') form:any;
+  data:any;
 
-  constructor() { 
+  constructor(private userService:UserService) { 
     
   }
 
   ngOnInit() {
-
-      this.users =[
-        {
-          firstName:'John',
-          lastName:'Doe',
-          email:'sample@123.com',
-          register: new Date('2010-3-2'),
-          hide:true
-        },
-        {
-          firstName:'John',
-          lastName:'Doe',
-          email:'sample@123.com',
-          hide:true
-        },
-        {
-          firstName:'John',
-          lastName:'Doe',
-          email:'sample@123.com',
-          hide:false
-        }
-      
-      ]
-      this.loaded=true;
-
+    this.userService.getUsers().subscribe(users=>{
+      this.users=users
+    })
+    this.loaded=true;
+    this.data = this.userService.getDate().subscribe(data=>{
+      console.log(data)
+    })
   }
   toggleHide(user:User){
     user.hide=!user.hide
@@ -56,7 +41,8 @@ export class UsersComponent implements OnInit {
       alert('pls valid the input info')
     }else{
       value.hide=true
-      this.users.unshift(value)
+      value.register = new Date()
+      this.userService.addUser(value)
       this.form.reset()
     }
 
