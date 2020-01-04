@@ -1,0 +1,14 @@
+<h2>Add Post</h2>
+<div>
+  <form>
+    <div class="form-group">
+      <label>title</label>
+      <input type="text" class="form-control" #title>
+    </div>
+    <div class="form-group">
+      <label>body</label>
+      <input type="text" class="form-control" #body>
+    </div>
+    <button class="form-control btn btn-dark" (click)="addPost(title.value,body.value)">add post</button>
+  </form>
+</div>
