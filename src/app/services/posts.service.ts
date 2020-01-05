@@ -21,4 +21,9 @@ export class PostsService {
   savePost(post:Post):Observable<Post>{
     return this.http.post<Post>(this.postUrl,post,headerOpitons)
   }
+
+  updatePost(post:Post):Observable<Post>{
+    const url = `${this.postUrl}/${post.id}`
+    return this.http.put<Post>(url,post,headerOpitons)
+  }
 }
