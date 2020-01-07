@@ -4,7 +4,7 @@ import { Post } from '../components/models/post'
 import { Observable } from 'rxjs';
 
 const headerOpitons ={
-  headers : new HttpHeaders({'Conetent-type' :'application/json'})
+  headers : new HttpHeaders({'Content-type' :'application/json'})
 }
 @Injectable({
   providedIn: 'root'

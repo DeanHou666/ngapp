@@ -20,11 +20,11 @@ export class PostFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  addPost(title,body){
+  addPost(title,body,id){
     if(!title || !body){
       alert('pls add a post')
     }else{
-      this.postSerive.savePost({title,body} as Post).subscribe(post =>{
+      this.postSerive.savePost({title,body,id} as Post).subscribe(post =>{
         this.newPost.emit(post)
       })
     }
